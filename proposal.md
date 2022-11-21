@@ -1,13 +1,22 @@
 # Proposal 
 
-Put a description of what you're going to do here 
+For the major project I will create a Manic Shooter/danmaku game. The player will be able to move around the screen to avoid enemy bullets while trying to shoot and eliminate the enemy.
 
 ## Needs To Have List 
 
-- thing 1 
-- thing 2 
+- Player character that can be controlled using arrow keys.
+- Player Lives 
+- Player Bullets
+- Points system
+- Enemy 
+- Enemy Bullets & abilites
+
 
 ## Nice to have list 
 
-- other thing 
-- -yet one more thing 
+- Player ability that can be activated when Z and C keys are pressed.
+- Different Characters the player can choose.
+- Different abilites. 
+- Power bar
+- Different Levels
+
