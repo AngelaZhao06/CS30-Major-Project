@@ -1,15 +1,22 @@
 # Proposal 
 
-For the major project I will create a Manic Shooter/danmaku game. The player will be able to move around the screen to avoid enemy bullets while trying to shoot and eliminate the enemy.
+For the major project I will create a Manic Shooter/danmaku game. Sorta like a Touhou copy. The player will be able to move around the screen to avoid enemy bullets while trying to shoot and eliminate the enemy.
 
 ## Needs To Have List 
 
+- Different screens for Start, Victory, Game Over  
 - Player character that can be controlled using arrow keys.
-- Player Lives 
+- Player Lives   
+- Should be able to detect if player character is hit by enemy bullets                  
 - Player Bullets
-- Points system
-- Enemy 
+- Keep track of player points 
+- Enemies  
 - Enemy Bullets & abilites
+- bullets should be able to target player character
+- Different Levels
+- Progression of difficulty in levels 
+- Boss Enemy 
+- Boss level
 
 
 ## Nice to have list 
@@ -18,5 +25,6 @@ For the major project I will create a Manic Shooter/danmaku game. The player wil
 - Different Characters the player can choose.
 - Different abilites. 
 - Power bar
-- Different Levels
+- Graze system (gives more points to the player if character is close to a bullet without actually hitting it).
+- Different Difficulty Modes (Easy, Normal, Hard, Lunatic)
 
