@@ -11,10 +11,10 @@ For the major project I will create a bullet hell/danmaku game. Sorta like a Tou
 - Player can fire Bullets to kill enemy
 - Keep track of player points 
 - at least 3 levels and a boss level
-- Progression of difficulty in levels 
+- Progression in difficulty for levels 
 - Main Enemey for each level 
 - Enemy Bullets & abilites
-- bullets should be able to target player character
+- sound effects
 
 ## Nice to have list 
 
