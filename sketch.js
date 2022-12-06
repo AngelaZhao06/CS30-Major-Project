@@ -5,6 +5,8 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
+let bullets = [];
+
 class Enemy{
   constructor(x, y, radius, health){
     this.x = x;
@@ -12,9 +14,14 @@ class Enemy{
     this.radius = radius;
     this.health = health;
     this.color = "black";
-    this.bullet = new EnemyBullet(this.x, this.y, 5, 30, 1, 0.1);
 
   } 
+  createBullets(){
+    for(let i = 0; i < 50; i++){
+      this.bullet = new EnemyBullet(this.x, this.y, 20, 65 + i*5, 5, 0.05);
+      bullets.push(this.bullet);
+    }
+  }
   display(){
     fill(this.color);
     stroke(this.color);
@@ -25,13 +32,13 @@ class Enemy{
 
 class EnemyBullet{ 
   //takes in initial x, y, and color of bullets.
-  constructor(x, y, radius, angle, scalar, speedOfBullet ){
+  constructor(x, y, radius, angle, scalar, speedOfAngle ){
     this.x = x;
     this.y = y;
     this.radius = radius;
     this.angle = angle;
     this.scalar = scalar;
-    this.speedOfBullet = speedOfBullet;
+    this.speedOfAngle = speedOfAngle;
   }
   display(){
     this.x = this.x + cos(this.angle) * this.scalar;
@@ -40,8 +47,8 @@ class EnemyBullet{
     fill("blue");
     circle(this.x, this.y, this.radius);
 
-    this.angle += this.speedOfBullet;
-    this.scalar += this.speedOfBullet;
+    // this.angle += this.speedOfAngle;
+    this.scalar += this.speedOfAngle;
   }
 
   isOffscreen(){
@@ -94,8 +101,9 @@ let enemy;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  player = new Character(width/2, height/2, playerr);
+  player = new Character(width/2, height/1.5, playerr);
   enemy = new Enemy(width/2, 100, 50, 500);
+  enemy.createBullets();
 }
 
 function draw() {
@@ -103,5 +111,8 @@ function draw() {
   player.display();
   player.update();
   enemy.display();
+  for(let i = 0; i < bullets.length; i++){
+    bullets[i].display();
+  }
 }
 
