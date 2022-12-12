@@ -6,6 +6,7 @@
 // - describe what you did to take this project "above and beyond"
 
 let bullets = [];
+let state = "START";
 
 class Enemy{
   constructor(x, y, radius, health){
@@ -18,7 +19,7 @@ class Enemy{
   } 
   createBullets(){
     for(let i = 0; i < 50; i++){
-      this.bullet = new EnemyBullet(this.x, this.y, 20, 65 + i*5, 5, 0.05);
+      this.bullet = new EnemyBullet(this.x, this.y, 10, 65 + i*5, 5, 0.015);
       bullets.push(this.bullet);
     }
   }
@@ -31,7 +32,6 @@ class Enemy{
 }
 
 class EnemyBullet{ 
-  //takes in initial x, y, and color of bullets.
   constructor(x, y, radius, angle, scalar, speedOfAngle ){
     this.x = x;
     this.y = y;
@@ -41,14 +41,15 @@ class EnemyBullet{
     this.speedOfAngle = speedOfAngle;
   }
   display(){
-    this.x = this.x + cos(this.angle) * this.scalar;
-    this.y = this.y + sin(this.angle) * this.scalar;
+    this.x = this.x + sin(this.angle) * this.scalar;
+    this.y = this.y + cos(this.angle) * this.scalar;
 
+    noStroke();
     fill("blue");
     circle(this.x, this.y, this.radius);
 
-    // this.angle += this.speedOfAngle;
-    this.scalar += this.speedOfAngle;
+    this.angle += this.speedOfAngle; //bullets move in circular direction 
+    this.scalar += this.speedOfAngle; //increases speed of bullet and moves the bullets outward
   }
 
   isOffscreen(){
@@ -61,6 +62,7 @@ class Character{
   constructor(x, y, radius){
     this.x = x;
     this.y = y;
+    this.health = 3;
     this.radius = radius; 
   }
   update(){
@@ -89,30 +91,44 @@ class Character{
   display(){
     fill(0);
     ellipse(this.x, this.y, this.radius*2);
+    textSize(32);
+    text(this.health, 20, 50);
   }
-  isHit(){
-
+  isHit(bulletX, bulletY){
+    let radiiSum = this.radius +  EnemyBullet.bullet.radius;
+    let distanceBetween = dist(this.x, this.y , bulletX.x, bulletY.y);
+    for(let i = 0; i < bullets.length; i++){
+      if(distanceBetween > radiiSum ){
+        this.health --;
+      }
+    }
   }
 }
 
 let player;
-let playerr = 15;
 let enemy;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  player = new Character(width/2, height/1.5, playerr);
+  player = new Character(width/2, height/1.5, 15);
   enemy = new Enemy(width/2, 100, 50, 500);
   enemy.createBullets();
 }
 
 function draw() {
-  background(220);
+  gameScreen();
   player.display();
   player.update();
   enemy.display();
   for(let i = 0; i < bullets.length; i++){
     bullets[i].display();
+    
+  }
+}
+
+function gameScreen(){
+  if (state === "START"){
+    background(150);
   }
 }
 
