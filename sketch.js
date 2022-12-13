@@ -48,7 +48,7 @@ class EnemyBullet{
     fill("blue");
     circle(this.x, this.y, this.radius);
 
-    this.angle += this.speedOfAngle; //bullets move in circular direction 
+    //this.angle += this.speedOfAngle; //bullets move in circular direction 
     this.scalar += this.speedOfAngle; //increases speed of bullet and moves the bullets outward
   }
 
@@ -64,6 +64,7 @@ class Character{
     this.y = y;
     this.health = 3;
     this.radius = radius; 
+    this.state = "vulnerable";
   }
   update(){
     if (keyIsDown(UP_ARROW)) { // go up
@@ -94,13 +95,17 @@ class Character{
     textSize(32);
     text(this.health, 20, 50);
   }
-  isHit(bulletX, bulletY){
-    let radiiSum = this.radius +  EnemyBullet.bullet.radius;
-    let distanceBetween = dist(this.x, this.y , bulletX.x, bulletY.y);
-    for(let i = 0; i < bullets.length; i++){
-      if(distanceBetween > radiiSum ){
-        this.health --;
+  isHit(theBullet){
+    let radiiSum = this.radius +  theBullet.radius;
+    let distanceBetween = dist(this.x, this.y , theBullet.x, theBullet.y);
+    if(distanceBetween < radiiSum && this.state === "vulnerable"){
+      this.health --;
+      this.state = "immune";
+      if(wait(3000)){
+        this.state = "vulnerable";
       }
+      
+
     }
   }
 }
@@ -122,6 +127,8 @@ function draw() {
   enemy.display();
   for(let i = 0; i < bullets.length; i++){
     bullets[i].display();
+    player.isHit(bullets[i]);
+
     
   }
 }
@@ -130,5 +137,13 @@ function gameScreen(){
   if (state === "START"){
     background(150);
   }
+}
+
+let start;
+let current;
+
+function wait(time){
+  millis();
+  if(millis > + )
 }
 
