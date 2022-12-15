@@ -48,7 +48,7 @@ class EnemyBullet{
     fill("blue");
     circle(this.x, this.y, this.radius);
 
-    //this.angle += this.speedOfAngle; //bullets move in circular direction 
+    this.angle += this.speedOfAngle; //bullets move in circular direction 
     this.scalar += this.speedOfAngle; //increases speed of bullet and moves the bullets outward
   }
 
@@ -64,7 +64,8 @@ class Character{
     this.y = y;
     this.health = 3;
     this.radius = radius; 
-    this.state = "vulnerable";
+    this.state = "VULNERABLE";
+    this.stateTimer = new Timer(2000, true);
   }
   update(){
     if (keyIsDown(UP_ARROW)) { // go up
@@ -87,10 +88,22 @@ class Character{
         this.x = this.x + 5;
       }
     }
+    if(this.health === 0){
+      this.state = "DEAD";
+    }
   }
 
   display(){
-    fill(0);
+    if(this.state === "VULNERABLE"){
+      fill("#000000");
+    } 
+    else if (this.state === "IMMUNE"){
+      fill("#d1c24d");
+    }
+    else if (this.state === "DEAD"){
+      fill("#e61902");
+    }
+    
     ellipse(this.x, this.y, this.radius*2);
     textSize(32);
     text(this.health, 20, 50);
@@ -98,15 +111,18 @@ class Character{
   isHit(theBullet){
     let radiiSum = this.radius +  theBullet.radius;
     let distanceBetween = dist(this.x, this.y , theBullet.x, theBullet.y);
-    if(distanceBetween < radiiSum && this.state === "vulnerable"){
-      this.health --;
-      this.state = "immune";
-      if(wait(3000)){
-        this.state = "vulnerable";
-      }
-      
+    if(distanceBetween < radiiSum && this.state === "VULNERABLE"){
 
+      this.health --;
+      this.state = "IMMUNE";
+
+      if (this.stateTimer.expired()){
+        this.state = "VULNERABLE";
+      }
     }
+  }
+  immune(){
+    // change the isHit to a boolean so you can create a timer
   }
 }
 
@@ -139,11 +155,5 @@ function gameScreen(){
   }
 }
 
-let start;
-let current;
 
-function wait(time){
-  millis();
-  if(millis > + )
-}
 
