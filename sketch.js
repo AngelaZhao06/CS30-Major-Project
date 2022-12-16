@@ -107,22 +107,21 @@ class Character{
     ellipse(this.x, this.y, this.radius*2);
     textSize(32);
     text(this.health, 20, 50);
+    text(int(this.stateTimer.getRemainingTime()), 100, 50);
   }
   isHit(theBullet){
     let radiiSum = this.radius +  theBullet.radius;
     let distanceBetween = dist(this.x, this.y , theBullet.x, theBullet.y);
-    if(distanceBetween < radiiSum && this.state === "VULNERABLE"){
 
+    if (this.stateTimer.expired() && this.state === "IMMUNE"){
+      this.state = "VULNERABLE";
+    }
+    if(distanceBetween < radiiSum && this.state === "VULNERABLE"){
       this.health --;
       this.state = "IMMUNE";
+      this.stateTimer.reset();
 
-      if (this.stateTimer.expired()){
-        this.state = "VULNERABLE";
-      }
     }
-  }
-  immune(){
-    // change the isHit to a boolean so you can create a timer
   }
 }
 
