@@ -5,6 +5,14 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
+//let marisa;
+let marisaIdleAnimation;
+
+function preload(){
+  //marisa = loadImage("assets/marisa-frames/idle-frames/tile000.png");
+  marisaIdleAnimation = loadAnimation("assets/marisa-frames/idle-frames/tile000.png", "assets/marisa-frames/idle-frames/tile001.png", "assets/marisa-frames/idle-frames/tile002.png", "assets/marisa-frames/idle-frames/tile003.png", "assets/marisa-frames/idle-frames/tile004.png");
+}
+
 let bullets = [];
 let state = "START";
 
@@ -66,26 +74,28 @@ class Character{
     this.radius = radius; 
     this.state = "VULNERABLE";
     this.stateTimer = new Timer(2000, true);
+    this.sprite = createSprite(this.x, this.y);
+    this.sprite.addAnimation("marisaIdle", marisaIdleAnimation);
   }
   update(){
     if (keyIsDown(UP_ARROW)) { // go up
       if (this.y - this.radius > 0){
-        this.y = this.y - 5;
+        this.y = this.y - 10;
       }
     }
     if (keyIsDown(DOWN_ARROW)) { //go down
       if (this.y + this.radius < windowHeight){
-        this.y = this.y + 5;
+        this.y = this.y + 10;
       }
     }
     if (keyIsDown(LEFT_ARROW)) {// go left
       if (this.x - this.radius > 0){
-        this.x = this.x - 5;
+        this.x = this.x - 10;
       }
     } 
     if (keyIsDown(RIGHT_ARROW)) { // go right
       if (this.x + this.radius < windowWidth){
-        this.x = this.x + 5;
+        this.x = this.x + 10;
       }
     }
     if(this.health === 0){
@@ -95,7 +105,7 @@ class Character{
 
   display(){
     if(this.state === "VULNERABLE"){
-      fill("#000000");
+      fill("#ff00b7");
     } 
     else if (this.state === "IMMUNE"){
       fill("#d1c24d");
@@ -103,7 +113,10 @@ class Character{
     else if (this.state === "DEAD"){
       fill("#e61902");
     }
+
+    drawSprites();
     
+    //image(marisa, this.x - marisa.width/1.05, this.y - marisa.height*1.15, marisa.width*2, marisa.height*2);
     ellipse(this.x, this.y, this.radius*2);
     textSize(32);
     text(this.health, 20, 50);
@@ -130,21 +143,20 @@ let enemy;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  player = new Character(width/2, height/1.5, 15);
+  player = new Character(width/2, height/1.5, 10);
   enemy = new Enemy(width/2, 100, 50, 500);
   enemy.createBullets();
 }
 
 function draw() {
   gameScreen();
+  enemy.display();
   player.display();
   player.update();
-  enemy.display();
+  
   for(let i = 0; i < bullets.length; i++){
     bullets[i].display();
     player.isHit(bullets[i]);
-
-    
   }
 }
 
