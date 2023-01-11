@@ -5,12 +5,12 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-//let marisa;
 let marisaIdleAnimation;
 
 function preload(){
   //marisa = loadImage("assets/marisa-frames/idle-frames/tile000.png");
-  marisaIdleAnimation = loadAnimation("assets/marisa-frames/idle-frames/tile000.png", "assets/marisa-frames/idle-frames/tile001.png", "assets/marisa-frames/idle-frames/tile002.png", "assets/marisa-frames/idle-frames/tile003.png", "assets/marisa-frames/idle-frames/tile004.png");
+  marisaIdleAnimation = loadAni("assets/marisa-frames/idle-frames/tile000.png", 6);
+  marisaLeftAnimation = loadAni("assets/marisa-frames/left-frames/tile007.png", 9);
 }
 
 let bullets = [];
@@ -49,6 +49,7 @@ class EnemyBullet{
     this.speedOfAngle = speedOfAngle;
   }
   display(){
+    angleMode(RADIANS);
     this.x = this.x + sin(this.angle) * this.scalar;
     this.y = this.y + cos(this.angle) * this.scalar;
 
@@ -67,41 +68,39 @@ class EnemyBullet{
 
 class Character{
   // player character, takes in inital x, y, and radius for circle;
-  constructor(x, y, radius){
+  constructor(x, y, radius, sprite){
     this.x = x;
     this.y = y;
+    this.sprite = sprite;
     this.health = 3;
     this.radius = radius; 
     this.state = "VULNERABLE";
     this.stateTimer = new Timer(2000, true);
-    this.sprite = createSprite(this.x, this.y);
-    this.sprite.addAnimation("marisaIdle", marisaIdleAnimation);
+
+    this.sprite.addAni(marisaIdleAnimation);
+
+    marisaIdleAnimation.scale = 2;
+    marisaIdleAnimation.frameDelay=4;
   }
   update(){
-    if (keyIsDown(UP_ARROW)) { // go up
-      if (this.y - this.radius > 0){
+    
+    if (kb.pressing("up") && this.y - this.radius > 0){ // go up
         this.y = this.y - 10;
-      }
     }
-    if (keyIsDown(DOWN_ARROW)) { //go down
-      if (this.y + this.radius < windowHeight){
+    if (kb.pressing("down")&& this.y + this.radius < windowHeight) { //go down
         this.y = this.y + 10;
-      }
     }
-    if (keyIsDown(LEFT_ARROW)) {// go left
-      if (this.x - this.radius > 0){
+    if (kb.pressing("left") && this.x - this.radius > 0) {// go left
         this.x = this.x - 10;
       }
-    } 
-    if (keyIsDown(RIGHT_ARROW)) { // go right
-      if (this.x + this.radius < windowWidth){
+    if (kb.pressing("right") && this.x + this.radius < windowWidth) { // go right
         this.x = this.x + 10;
       }
-    }
     if(this.health === 0){
       this.state = "DEAD";
     }
   }
+
 
   display(){
     if(this.state === "VULNERABLE"){
@@ -113,11 +112,13 @@ class Character{
     else if (this.state === "DEAD"){
       fill("#e61902");
     }
-
-    drawSprites();
+    
+    
+    this.sprite.x = this.x;
+    this.sprite.y = this.y;
     
     //image(marisa, this.x - marisa.width/1.05, this.y - marisa.height*1.15, marisa.width*2, marisa.height*2);
-    ellipse(this.x, this.y, this.radius*2);
+    //ellipse(this.x, this.y, this.radius*2);
     textSize(32);
     text(this.health, 20, 50);
     text(int(this.stateTimer.getRemainingTime()), 100, 50);
@@ -138,12 +139,15 @@ class Character{
   }
 }
 
+let marisa;
+let reimu; 
 let player;
 let enemy;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  player = new Character(width/2, height/1.5, 10);
+  marisa = new Sprite();
+  player = new Character(width/2, height/1.5, 10, marisa);
   enemy = new Enemy(width/2, 100, 50, 500);
   enemy.createBullets();
 }
@@ -153,6 +157,7 @@ function draw() {
   enemy.display();
   player.display();
   player.update();
+  
   
   for(let i = 0; i < bullets.length; i++){
     bullets[i].display();
