@@ -5,12 +5,12 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let marisaIdleAnimation;
+let marisaIdleAnimation, marisaLeftAnimation;
 
 function preload(){
   //marisa = loadImage("assets/marisa-frames/idle-frames/tile000.png");
-  marisaIdleAnimation = loadAni("assets/marisa-frames/idle-frames/tile000.png", 6);
-  marisaLeftAnimation = loadAni("assets/marisa-frames/left-frames/tile007.png", 9);
+  marisaIdleAnimation = loadAni("assets/marisa-frames/idle-frames/tile000.png", 8);
+  marisaLeftAnimation = loadAni("assets/marisa-frames/left-frames/tile009.png", "assets/marisa-frames/left-frames/tile010.png", "assets/marisa-frames/left-frames/tile011.png", "assets/marisa-frames/left-frames/tile012.png", "assets/marisa-frames/left-frames/tile013.png", "assets/marisa-frames/left-frames/tile014.png", "assets/marisa-frames/left-frames/tile015.png");
 }
 
 let bullets = [];
@@ -80,7 +80,7 @@ class Character{
     this.sprite.addAni(marisaIdleAnimation);
 
     marisaIdleAnimation.scale = 2;
-    marisaIdleAnimation.frameDelay=4;
+    marisaIdleAnimation.frameDelay=5;
   }
   update(){
     
@@ -93,6 +93,13 @@ class Character{
     if (kb.pressing("left") && this.x - this.radius > 0) {// go left
         this.x = this.x - 10;
       }
+    if(kb.holding("left")){
+      this.sprite.addAni(marisaLeftAnimation);
+      marisaLeftAnimation.scale = 2;
+    }
+    else{
+      this.sprite.addAni(marisaIdleAnimation);
+    }
     if (kb.pressing("right") && this.x + this.radius < windowWidth) { // go right
         this.x = this.x + 10;
       }
