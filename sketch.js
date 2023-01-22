@@ -1,21 +1,22 @@
 // Project Title
 // Your Name
 // Date
-//
+
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let marisaIdleAnimation, marisaLeftAnimation, marisaRightAnimation;
+
+let marisaIdleAnimation, marisaLeftAnimation;
 
 function preload(){
   //marisa = loadImage("assets/marisa-frames/idle-frames/tile000.png");
   marisaIdleAnimation = loadAni("assets/marisa-frames/idle-frames/tile000.png", 8);
   marisaLeftAnimation = loadAni("assets/marisa-frames/left-frames/tile009.png", "assets/marisa-frames/left-frames/tile010.png", "assets/marisa-frames/left-frames/tile011.png", "assets/marisa-frames/left-frames/tile012.png", "assets/marisa-frames/left-frames/tile013.png", "assets/marisa-frames/left-frames/tile014.png", "assets/marisa-frames/left-frames/tile015.png");
-  marisaRightAnimation = loadAni("assets/marisa-frames/right-frames/tile017.png",  "assets/marisa-frames/right-frames/tile018.png",  "assets/marisa-frames/right-frames/tile019.png",  "assets/marisa-frames/right-frames/tile020.png",  "assets/marisa-frames/right-frames/tile021.png",  "assets/marisa-frames/right-frames/tile022.png",  "assets/marisa-frames/right-frames/tile023.png")
+  marisaRightAnimation = loadAni( /***"assets/marisa-frames/right-frames/tile016.png",***/  "assets/marisa-frames/right-frames/tile017.png",  "assets/marisa-frames/right-frames/tile018.png",  "assets/marisa-frames/right-frames/tile019.png",  "assets/marisa-frames/right-frames/tile020.png",  "assets/marisa-frames/right-frames/tile021.png",  "assets/marisa-frames/right-frames/tile022.png",  "assets/marisa-frames/right-frames/tile023.png")
 }
 
-let bullets = [];
 let state = "START";
+let bullets = [];
 
 class Enemy{
   constructor(x, y, radius, health){
@@ -182,6 +183,4 @@ function gameScreen(){
     background(150);
   }
 }
-
-
 

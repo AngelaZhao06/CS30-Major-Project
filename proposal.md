@@ -12,7 +12,7 @@ For the major project I will create a bullet hell/danmaku game. Sorta like a Tou
 - Keep track of player points 
 - at least 3 levels and a boss level
 - Progression in difficulty for levels 
-- Main Enemey for each level 
+- Main Enemy for each level 
 - Enemy Bullets & abilites
 - sound effects
 
