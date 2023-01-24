@@ -4,24 +4,25 @@ For the major project I will create a bullet hell/danmaku game. Sorta like a Tou
 
 ## Needs To Have List 
 
-- Different screens for Start, Victory, Game Over  
-- Player character that can be controlled using arrow keys.
-- Player Lives   
-- Should be able to detect if player character is hit by enemy bullets                  
-- Player can fire Bullets to kill enemy
-- Keep track of player points 
-- at least 3 levels and a boss level
-- Progression in difficulty for levels 
-- Main Enemy for each level 
-- Enemy Bullets & abilites
-- sound effects
+- Different screens for Start, Victory, Game Over ✓
+- Player character that can be controlled using arrow keys. ✓
+- Player Lives ✓
+- Player Animations ✓
+- Should be able to detect if player character is hit by enemy bullets ✓                 
+- Player can fire Bullets to kill enemy using space button ✓
+- Keep track of player points ✓
+- at least 3 levels including boss level ✓
+- Main Enemy for each level ✓
+- Enemy Bullets & abilites ✓
 
 ## Nice to have list 
 
-- Player ability that can be activated when Z and C keys are pressed.
+
+- sound effects
+- scrolling backgrounds 
+- Progression in difficulty ✓
+- Player ability that can be activated C key pressed.
 - Different Characters the player can choose.
-- Different abilites. 
-- Power bar
 - Graze system (gives more points to the player if character is close to a bullet without actually hitting it).
-- Different Difficulty Modes (Easy, Normal, Hard, Lunatic)
+- Different Difficulty Modes (Easy, Normal, Hard)
 
