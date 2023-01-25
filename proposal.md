@@ -19,7 +19,7 @@ For the major project I will create a bullet hell/danmaku game. Sorta like a Tou
 
 
 - sound effects
-- scrolling backgrounds 
+- scrolling backgrounds ✓
 - Progression in difficulty ✓
 - Player ability that can be activated C key pressed.
 - Different Characters the player can choose.

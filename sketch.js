@@ -15,6 +15,8 @@ let heart;
 let score = 0;
 let isFiring = false;
 let stageMultiplier = 80; //adjusts the healthbar of the enemy
+let bg;
+let startingY = -1850;
 
 let leftAnimation, rightAnimation, verticalAnimation;
 let marisaIdleAnimation, marisaLeftAnimation, marisaRightAnimation;
@@ -25,6 +27,7 @@ let bossAttackArray = []
 let emptyArray = [];
 let playerBullets = [];
 
+let clownPiece;
 
 function preload(){
   marisaIdleAnimation = loadAni("assets/marisa-frames/idle-frames/tile000.png", 8);
@@ -32,9 +35,11 @@ function preload(){
   marisaRightAnimation = loadAni("assets/marisa-frames/right-frames/tile019.png",  "assets/marisa-frames/right-frames/tile020.png",  "assets/marisa-frames/right-frames/tile021.png",  "assets/marisa-frames/right-frames/tile022.png",  "assets/marisa-frames/right-frames/tile023.png")
 
   heart = loadImage("assets/heart.png");
+  bg = loadImage("assets/background.png");
+
+  clownPiece = loadImage("assets/clownpiece.gif");
+  bullet_sound = loadSound("assets/bullet_sound.mp3");
 }
-
-
 
 class Enemy{
   constructor(x, y, radius, health){
@@ -42,7 +47,7 @@ class Enemy{
     this.y = y;
     this.radius = radius;
     this.health = health;
-    this.color = "black";
+    this.color = 184, 141, 55;
 
   } 
   createBullets(x, y, radius, angle, scalar, vel, spin){
@@ -164,6 +169,9 @@ class Player{
       playerBullets.push(newBullet);
       this.dy = 1;
       this.dx = 1;
+      if(!bullet_sound.isPlaying()){
+        bullet_sound.play();
+      }
       this.bulletTimer.reset();
     } else {
       this.dy = 10;
@@ -390,6 +398,7 @@ function gameScreen(){
 
   else if(state === 1){
     background("green");
+    scrollingBG();
     scoreBoard();
     
     bullets = emptyArray;
@@ -402,6 +411,7 @@ function gameScreen(){
     }
     
     enemy1.display();
+    //image(clownPiece, enemy1.x, enemy1.y);
 
     if(enemy1.health <= 0){
       state = 2;
@@ -412,6 +422,7 @@ function gameScreen(){
     bullets = emptyArray;
 
     background("purple");
+    scrollingBG();
     stageMultiplier = 160;
 
     scoreBoard();     
@@ -432,6 +443,8 @@ function gameScreen(){
     bullets = emptyArray;
 
     background("orange");
+    scrollingBG();
+
     stageMultiplier = 300;
 
     scoreBoard();   
@@ -477,7 +490,7 @@ function gameScreen(){
 
 function scoreBoard(){
   textAlign(LEFT);
-  fill("black");
+  fill(110, 109, 107);
   rect(windowWidth * 3/4, 0, windowWidth/4, windowHeight);
   fill("red");
   textSize(32);
@@ -493,6 +506,7 @@ function scoreBoard(){
 function refresh(){
   createCanvas(windowWidth, windowHeight);
   bullets = emptyArray;
+  player.health = 6;
   state = 0;
   score = 0;
   stageMultiplier = 80;
@@ -508,4 +522,13 @@ function refresh(){
   boss.createBullets(boss.x, boss.y, 10, 5, 5, 0.01, false);
   boss.createBullets(boss.x, boss.y, 10, 5, 3, 0.005, true);
   
+}
+
+function scrollingBG(){
+  image(bg, 0, startingY, windowWidth * 3/4, bg.height );
+  startingY++;
+  if(startingY++ > 0){
+    startingY = -1800;
+  }
+
 }
